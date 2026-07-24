@@ -4,19 +4,35 @@
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@app/*": [
-        "./app/*"
-      ]
+      "@/*": ["./src/*"],
+      "@app/*": ["./app/*"],
+      "@components": ["./src/components"],
+      "@components/*": ["./src/components/*"],
+      "@features": ["./src/features"],
+      "@features/*": ["./src/features/*"],
+      "@hooks": ["./src/hooks"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@store": ["./src/store"],
+      "@store/*": ["./src/store/*"],
+      "@services": ["./src/services"],
+      "@services/*": ["./src/services/*"],
+      "@constants": ["./src/constants"],
+      "@constants/*": ["./src/constants/*"],
+      "@theme": ["./src/theme"],
+      "@theme/*": ["./src/theme/*"],
+      "@utils": ["./src/utils"],
+      "@utils/*": ["./src/utils/*"],
+      "@content": ["./src/content"],
+      "@content/*": ["./src/content/*"],
+      "@config": ["./src/config"],
+      "@config/*": ["./src/config/*"],
+      "@navigation": ["./src/navigation"],
+      "@navigation/*": ["./src/navigation/*"],
+      "@animations": ["./src/animations"],
+      "@animations/*": ["./src/animations/*"],
+      "@assets/*": ["./src/assets/*"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }

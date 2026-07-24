@@ -1,4 +1,4 @@
-import { WORLDS } from '@/config/worlds.config';
+import { WORLDS } from '@content/worlds';
 import type { WorldConfig } from '@/types/world.types';
 
 export function getWorldById(worldId: string): WorldConfig | undefined {

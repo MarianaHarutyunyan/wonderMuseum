@@ -1,8 +1,8 @@
 import { StyleSheet, View } from 'react-native';
 
-import { AppText } from '@/components/ui/AppText';
-import { Card } from '@/components/ui/Card';
-import { colors, spacing } from '@/theme';
+import { AppText } from '@components/ui/AppText';
+import { Card } from '@components/ui/Card';
+import { colors, spacing } from '@theme';
 import type { ExhibitConfig } from '@/types/world.types';
 
 interface ExhibitCardProps {

@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
-import { hapticsService } from '@/services/haptics/hapticsService';
-import { useSettingsStore } from '@/store/settingsStore';
+import { hapticsService } from '@services/haptics/hapticsService';
+import { useSettingsStore } from '@store/settingsStore';
 
 export function useHaptics() {
   const hapticsEnabled = useSettingsStore((state) => state.hapticsEnabled);

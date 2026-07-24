@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
-import { useHaptics } from '@/hooks/useHaptics';
-import { useProgressStore } from '@/store/progressStore';
+import { useHaptics } from '@hooks/useHaptics';
+import { useProgressStore } from '@store/progressStore';
 import type { WorldConfig } from '@/types/world.types';
 
 export function useWorldProgress(world: WorldConfig | undefined) {

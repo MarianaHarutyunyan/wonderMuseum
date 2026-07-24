@@ -2,14 +2,14 @@ import { useMemo } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 
-import { AppButton } from '@/components/ui/AppButton';
-import { AppText } from '@/components/ui/AppText';
-import { ScreenContainer } from '@/components/ui/ScreenContainer';
-import { ExhibitCard } from '@/features/worlds/components/ExhibitCard';
-import { MiniGameRow } from '@/features/worlds/components/MiniGameRow';
-import { useWorldProgress } from '@/features/worlds/hooks/useWorldProgress';
-import { getWorldById } from '@/features/worlds/utils/getWorldById';
-import { colors, spacing } from '@/theme';
+import { AppButton } from '@components/ui/AppButton';
+import { AppText } from '@components/ui/AppText';
+import { ScreenContainer } from '@components/layout/ScreenContainer';
+import { ExhibitCard } from '@features/worlds/components/ExhibitCard';
+import { MiniGameRow } from '@features/worlds/components/MiniGameRow';
+import { useWorldProgress } from '@features/worlds/hooks/useWorldProgress';
+import { getWorldById } from '@features/worlds/utils/getWorldById';
+import { colors, spacing } from '@theme';
 
 export default function WorldScreen() {
   const { worldId } = useLocalSearchParams<{ worldId: string }>();

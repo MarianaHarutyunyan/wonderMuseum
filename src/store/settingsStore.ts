@@ -1,8 +1,9 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-import { APP_CONFIG } from '@/config/app.config';
-import { zustandMmkvStorage } from '@/services/storage/mmkvStorage';
+import { APP_CONFIG } from '@config';
+import { STORAGE_KEYS } from '@constants';
+import { zustandMmkvStorage } from '@services/storage/mmkvStorage';
 
 interface SettingsState {
   soundEnabled: boolean;
@@ -20,7 +21,7 @@ export const useSettingsStore = create<SettingsState>()(
       toggleHaptics: () => set((state) => ({ hapticsEnabled: !state.hapticsEnabled })),
     }),
     {
-      name: 'wonder-museum-settings',
+      name: STORAGE_KEYS.settingsStore,
       storage: createJSONStorage(() => zustandMmkvStorage),
     },
   ),

@@ -1,7 +1,9 @@
 import { createMMKV } from 'react-native-mmkv';
 import type { StateStorage } from 'zustand/middleware';
 
-export const mmkv = createMMKV({ id: 'wonder-museum-storage' });
+import { STORAGE_KEYS } from '@constants';
+
+export const mmkv = createMMKV({ id: STORAGE_KEYS.mmkvInstanceId });
 
 export const zustandMmkvStorage: StateStorage = {
   getItem: (name) => mmkv.getString(name) ?? null,

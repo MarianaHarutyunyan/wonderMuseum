@@ -1,9 +1,9 @@
 import { ScrollView, StyleSheet } from 'react-native';
 
-import { COLLECTIBLE_TYPES } from '@/config/collectibles.config';
-import { CollectibleBadge } from '@/features/collectibles/components/CollectibleBadge';
-import { useProgressStore } from '@/store/progressStore';
-import { spacing } from '@/theme';
+import { COLLECTIBLE_TYPES } from '@content/rewards';
+import { CollectibleBadge } from '@features/collectibles/components/CollectibleBadge';
+import { useProgressStore } from '@store/progressStore';
+import { spacing } from '@theme';
 
 export function CollectibleSummaryBar() {
   const collectibles = useProgressStore((state) => state.collectibles);

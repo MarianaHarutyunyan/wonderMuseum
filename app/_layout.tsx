@@ -4,7 +4,7 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet } from 'react-native';
 
-import { colors } from '@/theme';
+import { colors } from '@theme';
 
 export default function RootLayout() {
   return (

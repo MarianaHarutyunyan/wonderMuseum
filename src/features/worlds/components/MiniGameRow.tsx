@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { AppButton } from '@/components/ui/AppButton';
-import { AppText } from '@/components/ui/AppText';
-import { Card } from '@/components/ui/Card';
-import { colors, spacing } from '@/theme';
+import { AppButton } from '@components/ui/AppButton';
+import { AppText } from '@components/ui/AppText';
+import { Card } from '@components/ui/Card';
+import { colors, spacing } from '@theme';
 import type { MiniGameConfig } from '@/types/world.types';
 
 interface MiniGameRowProps {

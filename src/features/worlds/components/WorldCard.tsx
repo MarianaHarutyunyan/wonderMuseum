@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import { Pressable } from 'react-native';
 
-import { AppText } from '@/components/ui/AppText';
-import { Card } from '@/components/ui/Card';
-import { colors, type ColorToken } from '@/theme';
+import { AppText } from '@components/ui/AppText';
+import { Card } from '@components/ui/Card';
+import { colors, type ColorToken } from '@theme';
 import type { WorldConfig } from '@/types/world.types';
 
 interface WorldCardProps {

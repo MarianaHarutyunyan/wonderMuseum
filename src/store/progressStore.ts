@@ -1,7 +1,8 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-import { zustandMmkvStorage } from '@/services/storage/mmkvStorage';
+import { STORAGE_KEYS } from '@constants';
+import { zustandMmkvStorage } from '@services/storage/mmkvStorage';
 import type { CollectibleTotals, CollectibleType } from '@/types/collectibles.types';
 
 interface ProgressState {
@@ -52,7 +53,7 @@ export const useProgressStore = create<ProgressState>()(
       isMiniGameCompleted: (miniGameId) => get().completedMiniGameIds.includes(miniGameId),
     }),
     {
-      name: 'wonder-museum-progress',
+      name: STORAGE_KEYS.progressStore,
       storage: createJSONStorage(() => zustandMmkvStorage),
     },
   ),

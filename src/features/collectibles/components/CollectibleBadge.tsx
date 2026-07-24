@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 
-import { AppText } from '@/components/ui/AppText';
-import { colors, radius, spacing, type ColorToken } from '@/theme';
+import { AppText } from '@components/ui/AppText';
+import { colors, radius, spacing, type ColorToken } from '@theme';
 
 interface CollectibleBadgeProps {
   label: string;

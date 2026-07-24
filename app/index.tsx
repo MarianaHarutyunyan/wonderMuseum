@@ -2,16 +2,17 @@ import { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { router } from 'expo-router';
 
-import { AppText } from '@/components/ui/AppText';
-import { ScreenContainer } from '@/components/ui/ScreenContainer';
-import { CollectibleSummaryBar } from '@/features/collectibles/components/CollectibleSummaryBar';
-import { WorldList } from '@/features/worlds/components/WorldList';
-import { WORLDS } from '@/config/worlds.config';
-import { spacing } from '@/theme';
+import { AppText } from '@components/ui/AppText';
+import { ScreenContainer } from '@components/layout/ScreenContainer';
+import { CollectibleSummaryBar } from '@features/collectibles/components/CollectibleSummaryBar';
+import { WorldList } from '@features/worlds/components/WorldList';
+import { WORLDS } from '@content/worlds';
+import { ROUTES } from '@navigation';
+import { spacing } from '@theme';
 
 export default function HomeScreen() {
   const handleSelectWorld = useCallback((worldId: string) => {
-    router.push(`/world/${worldId}`);
+    router.push(ROUTES.world(worldId));
   }, []);
 
   return (
