@@ -5,9 +5,17 @@ Reusable, presentation-only components shared across multiple mini-games and rew
 
 ## Current components
 
-- `Coin.tsx` — gold coin glyph, optionally paired with a count.
-- `Star.tsx` — star glyph for ratings/rewards/unlocked-level indicators (filled or outline).
+- `Coin.tsx` — glossy gradient coin glyph, optionally paired with a count.
+- `Star.tsx` — gradient star glyph for ratings/rewards/unlocked-level indicators (filled or outline).
+- `Gem.tsx`, `Energy.tsx` — gradient currency glyphs (gems, energy/lives).
+- `Fossil.tsx`, `Artifact.tsx`, `Creature.tsx` — gradient collectible-type glyphs.
+- `Trophy.tsx` — gradient achievement/rank glyph.
+- `Dinosaur.tsx`, `Planet.tsx`, `Wave.tsx`, `Egypt.tsx` — gradient world-badge glyphs.
 - `FloatingReward.tsx` — a reward label that rises and fades out (coin/star pickups, score pops).
+
+These are the "hero" glyphs the `Icon` component (`src/components/ui/Icon`) dispatches to for
+reward/world tokens; every other semantic token renders through the outline `GlyphIcon`
+(`src/components/icons`).
 
 ## Rules
 

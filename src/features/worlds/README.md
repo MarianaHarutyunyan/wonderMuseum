@@ -1,11 +1,11 @@
 # features/worlds/
 
-Everything related to browsing museum worlds, their mini-games, and their exhibits.
+Everything related to browsing museum worlds, their levels, and their exhibits.
 
 ## Contents
 
-- `components/` — `WorldCard`, `WorldList`, `MiniGameRow`, `ExhibitCard`.
-- `hooks/` — `useWorldProgress`, which reads/writes world-related progress in `src/store`.
+- `components/` — `WorldListItem`, `WorldList`, `LevelTile`, `ExhibitCard`.
+- `hooks/` — `useWorldProgress` (level/exhibit unlock state) and `useWorldSummary` (per-world completion fraction).
 - `utils/` — `getWorldById`, a pure lookup helper over `src/content/worlds`.
 
 ## Depends on

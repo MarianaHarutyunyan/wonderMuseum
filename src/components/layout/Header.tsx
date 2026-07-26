@@ -2,8 +2,9 @@ import type { ReactNode } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 
 import { AppText } from '@components/ui/AppText';
+import { Icon } from '@components/ui/Icon';
 import { useThemeColors } from '@hooks/useThemeColors';
-import { spacing } from '@theme';
+import { radius, shadows, spacing } from '@theme';
 
 interface HeaderProps {
   title: string;
@@ -19,10 +20,14 @@ export function Header({ title, onBack, rightAction }: HeaderProps) {
     <View style={styles.row}>
       <View style={styles.side}>
         {onBack ? (
-          <Pressable onPress={onBack} accessibilityRole="button" accessibilityLabel="Go back" hitSlop={12}>
-            <AppText size="xl" weight="bold" color={colors.primary}>
-              ‹
-            </AppText>
+          <Pressable
+            onPress={onBack}
+            accessibilityRole="button"
+            accessibilityLabel="Go back"
+            hitSlop={12}
+            style={[styles.backButton, shadows.sm, { backgroundColor: colors.surface }]}
+          >
+            <Icon token="back" size={20} color={colors.textPrimary} />
           </Pressable>
         ) : null}
       </View>
@@ -44,7 +49,14 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.sm,
   },
   side: {
-    minWidth: 32,
+    minWidth: 40,
+  },
+  backButton: {
+    width: 36,
+    height: 36,
+    borderRadius: radius.md,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   titleWrap: {
     flex: 1,

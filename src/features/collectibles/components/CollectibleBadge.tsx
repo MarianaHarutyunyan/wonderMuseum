@@ -1,36 +1,53 @@
 import { StyleSheet, View } from 'react-native';
 
-import { AppText } from '@components/ui/AppText';
-import { colors, radius, spacing, type ColorToken } from '@theme';
+import { Icon } from '@components/ui/Icon';
+import { StatCard } from '@components/ui/StatCard';
+import { spacing, type ColorToken, type EmojiToken, type GradientToken } from '@theme';
 
 interface CollectibleBadgeProps {
   label: string;
   count: number;
   colorToken: string;
+  icon: string;
 }
 
-export function CollectibleBadge({ label, count, colorToken }: CollectibleBadgeProps) {
-  const accentColor = colors[colorToken as ColorToken] ?? colors.primary;
+const gradientByColorToken: Partial<Record<ColorToken, GradientToken>> = {
+  accentGold: 'gold',
+  accentFossil: 'orange',
+  accentArtifact: 'blue',
+  accentCreature: 'pink',
+};
+
+/** Colorful gradient stat card for a single collectible type (stars/fossils/artifacts/creatures). */
+export function CollectibleBadge({ label, count, colorToken, icon }: CollectibleBadgeProps) {
+  const gradient = gradientByColorToken[colorToken as ColorToken] ?? 'blue';
 
   return (
-    <View style={[styles.badge, { borderColor: accentColor }]}>
-      <AppText size="xs" color={accentColor} weight="semiBold">
-        {label}
-      </AppText>
-      <AppText size="md" weight="bold">
-        {count}
-      </AppText>
+    <View style={styles.wrap}>
+      <StatCard
+        label={label}
+        value={count}
+        gradient={gradient}
+        icon={
+          <View style={styles.iconBadge}>
+            <Icon token={icon as EmojiToken} size={22} color="#FFFFFF" />
+          </View>
+        }
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  badge: {
-    borderWidth: 1,
-    borderRadius: radius.md,
-    paddingVertical: spacing.xs,
-    paddingHorizontal: spacing.sm,
+  wrap: {
+    minWidth: 120,
+  },
+  iconBadge: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: 'rgba(255,255,255,0.25)',
     alignItems: 'center',
-    minWidth: 64,
+    justifyContent: 'center',
   },
 });

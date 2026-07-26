@@ -21,6 +21,8 @@ interface AppTextProps extends PropsWithChildren {
   color?: string;
   align?: TextStyle['textAlign'];
   numberOfLines?: number;
+  /** Soft drop shadow for legibility over busy backgrounds (e.g. the home hero image). */
+  shadow?: boolean;
 }
 
 export function AppText({
@@ -31,6 +33,7 @@ export function AppText({
   color,
   align = 'left',
   numberOfLines,
+  shadow = false,
 }: AppTextProps) {
   const colors = useThemeColors();
   const preset = variant ? textVariants[variant] : undefined;
@@ -47,6 +50,7 @@ export function AppText({
           lineHeight: preset?.lineHeight,
           color: color ?? colors.textPrimary,
           textAlign: align,
+          ...(shadow ? styles.shadow : null),
         },
       ]}
     >
@@ -57,4 +61,9 @@ export function AppText({
 
 const styles = StyleSheet.create({
   base: {},
+  shadow: {
+    textShadowColor: 'rgba(20, 20, 45, 0.45)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 6,
+  },
 });

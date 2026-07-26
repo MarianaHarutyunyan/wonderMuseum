@@ -1,6 +1,6 @@
 import { AppText } from '@components/ui/AppText';
 import { GradientButton } from '@components/ui/GradientButton';
-import { buttonVariants, type ButtonVariantToken } from '@theme';
+import { buttonVariants, radius, spacing, type ButtonVariantToken } from '@theme';
 
 interface AppButtonProps {
   label: string;
@@ -11,6 +11,8 @@ interface AppButtonProps {
 }
 
 const sizeFontScale = { sm: 'sm', md: 'md', lg: 'lg' } as const;
+const sizePaddingScale = { sm: spacing.xs, md: spacing.sm, lg: spacing.lg } as const;
+const sizeRadiusScale = { sm: radius.md, md: radius.button, lg: radius.bottomSheet } as const;
 
 export function AppButton({ label, onPress, variant = 'primary', size = 'md', disabled = false }: AppButtonProps) {
   const preset = buttonVariants[variant];
@@ -19,7 +21,8 @@ export function AppButton({ label, onPress, variant = 'primary', size = 'md', di
     <GradientButton
       onPress={onPress}
       gradient={preset.gradient}
-      radiusToken={preset.radius}
+      radiusToken={sizeRadiusScale[size]}
+      paddingVertical={sizePaddingScale[size]}
       shadow={preset.shadow}
       disabled={disabled}
       accessibilityLabel={label}

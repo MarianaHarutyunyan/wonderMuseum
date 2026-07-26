@@ -58,8 +58,9 @@ export function AnimatedButton({
       disabled={disabled}
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel}
+      style={style}
     >
-      <Animated.View style={[style, animatedStyle, disabled && { opacity: 0.5 }]}>{children}</Animated.View>
+      <Animated.View style={[animatedStyle, disabled && { opacity: 0.5 }]}>{children}</Animated.View>
     </Pressable>
   );
 }

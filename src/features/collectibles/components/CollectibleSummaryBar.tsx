@@ -20,6 +20,7 @@ export function CollectibleSummaryBar() {
           label={collectibleType.label}
           count={collectibles[collectibleType.id]}
           colorToken={collectibleType.colorToken}
+          icon={collectibleType.icon}
         />
       ))}
     </ScrollView>

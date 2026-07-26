@@ -30,9 +30,19 @@ Atomic, generic UI primitives: the smallest reusable visual building blocks in t
 - `Dialog` — alert-style modal: title, message, action buttons.
 - `RewardCard` / `StatCard` — icon + count/value + label cards for collectibles and stats.
 - `MuseumCard` — museum-section card with a gradient header band.
-- `LevelCard` — numbered level card with progress bar and locked state.
 - `WorldCard` — full-bleed gradient world card with progress.
 - `Counter` — animated count-up/down number display.
 - `Toast` — transient top-of-screen notification banner.
+- `Icon` — semantic glyph renderer; dispatches to a gradient "hero" glyph (`src/components/game`)
+  for reward/world tokens or an outline `GlyphIcon` (`src/components/icons`) for everything else.
+- `IconButton` — rounded surface button wrapping a single `Icon`, with an optional count badge.
+- `CurrencyPill` — icon + amount pill, with an optional "+" add action (coins/gems/energy HUD).
+- `SegmentedTabs` — pill-style segmented control.
+- `GridTile` — square collectible/exhibit thumbnail tile with a locked state.
+- `OptionButton` — quiz-answer button that recolors to correct/incorrect.
+- `ListRow` — icon + title + optional progress row (missions/statistics lists).
+- `ToggleSwitch` — rounded pill switch.
+- `CelebrationOverlay` — full-bleed gradient celebration screen (Correct/Level Complete/New
+  Exhibit all build on this).
 
 Import via the barrel: `import { AppButton, AppText, Card } from '@components/ui';`

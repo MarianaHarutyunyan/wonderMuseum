@@ -1,8 +1,9 @@
-import { Image, StyleSheet, View, type ImageSourcePropType } from 'react-native';
+import { Image, StyleSheet, View, type ImageSourcePropType, type ImageStyle } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import { AppText } from '@components/ui/AppText';
 import { useThemeColors } from '@hooks/useThemeColors';
-import { radius } from '@theme';
+import { gradientAngles, gradients, radius, shadows } from '@theme';
 
 interface AvatarProps {
   source?: ImageSourcePropType;
@@ -10,38 +11,58 @@ interface AvatarProps {
   label?: string;
   size?: number;
   ringColor?: string;
+  /** Small gold chip overlapping the bottom-left edge — the player level badge. */
+  levelBadge?: number;
+  /** Overrides the inner image's size/position — used to crop/pan a larger source image (e.g. a face crop). */
+  imageStyle?: ImageStyle;
 }
 
-export function Avatar({ source, label, size = 56, ringColor }: AvatarProps) {
+const RING_PADDING = 3;
+
+export function Avatar({ source, label, size = 56, ringColor, levelBadge, imageStyle }: AvatarProps) {
   const colors = useThemeColors();
-  const dimension = { width: size, height: size, borderRadius: radius.avatar };
+  const innerSize = size - RING_PADDING * 2;
+  const dimension = { width: innerSize, height: innerSize, borderRadius: radius.avatar };
 
   return (
-    <View
-      style={[
-        styles.ring,
-        dimension,
-        { borderColor: ringColor ?? colors.primary, backgroundColor: colors.surfaceElevated },
-      ]}
-    >
-      {source ? (
-        <Image source={source} style={[dimension, styles.image]} />
-      ) : (
-        <View style={[dimension, styles.fallback]}>
-          <AppText size="lg" weight="extraBold" color={colors.primary}>
-            {(label ?? '?').slice(0, 1).toUpperCase()}
+    <View style={{ width: size, height: size }}>
+      <LinearGradient
+        colors={ringColor ? [ringColor, ringColor] : gradients.gold}
+        start={gradientAngles.diagonal.start}
+        end={gradientAngles.diagonal.end}
+        style={[styles.ring, shadows.sm, { width: size, height: size, borderRadius: radius.avatar }]}
+      >
+        {source ? (
+          <View style={[dimension, styles.clip]}>
+            <Image source={source} style={[{ width: innerSize, height: innerSize }, styles.image, imageStyle]} />
+          </View>
+        ) : (
+          <View style={[dimension, styles.fallback, { backgroundColor: colors.surfaceElevated }]}>
+            <AppText size="lg" weight="extraBold" color={colors.primary}>
+              {(label ?? '?').slice(0, 1).toUpperCase()}
+            </AppText>
+          </View>
+        )}
+      </LinearGradient>
+      {levelBadge !== undefined ? (
+        <View style={[styles.levelBadge, shadows.sm, { borderColor: colors.background }]}>
+          <AppText size="xs" weight="extraBold" color={colors.onGold}>
+            {levelBadge}
           </AppText>
         </View>
-      )}
+      ) : null}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   ring: {
-    borderWidth: 3,
     alignItems: 'center',
     justifyContent: 'center',
+    padding: RING_PADDING,
+  },
+  clip: {
+    overflow: 'hidden',
   },
   image: {
     resizeMode: 'cover',
@@ -49,5 +70,18 @@ const styles = StyleSheet.create({
   fallback: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  levelBadge: {
+    position: 'absolute',
+    bottom: -4,
+    left: -4,
+    minWidth: 22,
+    height: 22,
+    paddingHorizontal: 4,
+    borderRadius: 11,
+    borderWidth: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FFD54A',
   },
 });

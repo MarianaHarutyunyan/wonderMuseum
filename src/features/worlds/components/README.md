@@ -2,7 +2,7 @@
 
 UI specific to the worlds feature — not reusable outside of it (unlike `src/components/ui`).
 
-- `WorldCard` — single world summary, used in the home world list.
-- `WorldList` — FlashList wrapper rendering `WorldCard` items.
-- `MiniGameRow` — a mini-game entry with a play/replay action.
+- `WorldListItem` — binds a `WorldConfig` to the themed `WorldCard`, resolving live progress.
+- `WorldList` — FlashList wrapper rendering `WorldListItem` items.
+- `LevelTile` — a numbered level-select grid tile with stars/lock state.
 - `ExhibitCard` — an exhibit with its locked/unlocked state.

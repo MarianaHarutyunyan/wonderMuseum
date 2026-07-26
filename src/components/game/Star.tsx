@@ -1,5 +1,6 @@
+import { useId } from 'react';
 import { StyleSheet, View } from 'react-native';
-import Svg, { Path } from 'react-native-svg';
+import Svg, { Defs, LinearGradient, Path, Stop } from 'react-native-svg';
 
 import { useThemeColors } from '@hooks/useThemeColors';
 import { rewardColors } from '@theme';
@@ -9,21 +10,47 @@ const STAR_PATH =
 
 interface StarProps {
   size?: number;
-  /** Unfilled stars render as an outline in the muted text color. */
+  /** Unfilled stars render as a muted outline. */
   filled?: boolean;
   color?: string;
 }
 
-/** Star glyph used for ratings, rewards, and unlocked-level indicators. */
+/** Glossy gradient star glyph used for ratings, rewards, and unlocked-level indicators. */
 export function Star({ size = 24, filled = true, color }: StarProps) {
   const colors = useThemeColors();
-  const fill = filled ? (color ?? rewardColors.star) : 'transparent';
-  const stroke = filled ? (color ?? rewardColors.star) : colors.textMuted;
+  const gradientId = useId();
+
+  if (!filled) {
+    return (
+      <View style={styles.wrapper}>
+        <Svg width={size} height={size} viewBox="0 0 24 24">
+          <Path d={STAR_PATH} fill="transparent" stroke={colors.textMuted} strokeWidth={1.5} strokeLinejoin="round" />
+        </Svg>
+      </View>
+    );
+  }
+
+  if (color) {
+    return (
+      <View style={styles.wrapper}>
+        <Svg width={size} height={size} viewBox="0 0 24 24">
+          <Path d={STAR_PATH} fill={color} strokeLinejoin="round" />
+        </Svg>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.wrapper}>
       <Svg width={size} height={size} viewBox="0 0 24 24">
-        <Path d={STAR_PATH} fill={fill} stroke={stroke} strokeWidth={1.5} strokeLinejoin="round" />
+        <Defs>
+          <LinearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+            <Stop offset="0" stopColor="#FFF3C4" />
+            <Stop offset="0.4" stopColor={rewardColors.star} />
+            <Stop offset="1" stopColor="#E68A1F" />
+          </LinearGradient>
+        </Defs>
+        <Path d={STAR_PATH} fill={`url(#${gradientId})`} stroke="#B9660A" strokeWidth={0.75} strokeLinejoin="round" />
       </Svg>
     </View>
   );

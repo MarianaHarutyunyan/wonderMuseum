@@ -1,5 +1,6 @@
 import type { PropsWithChildren } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { BlurView } from 'expo-blur';
 
 import { AnimatedButton } from '@components/ui/AnimatedButton';
 import { useThemeColors } from '@hooks/useThemeColors';
@@ -13,10 +14,10 @@ interface CardProps extends PropsWithChildren {
   onPress?: () => void;
 }
 
+/** Glass card — translucent `#22295C` panel with a soft blur, per the Wonder Museum spec. */
 export function Card({ children, variant = 'default', accentColor, padding = spacing.md, onPress }: CardProps) {
   const colors = useThemeColors();
   const preset = cardVariants[variant];
-  const background = variant === 'dark' ? colors.cardDark : colors.surface;
   const borderColor = accentColor ?? (variant === 'outlined' ? colors.border : colors.transparent);
 
   const content = (
@@ -25,15 +26,15 @@ export function Card({ children, variant = 'default', accentColor, padding = spa
         styles.card,
         preset.shadow,
         {
-          backgroundColor: background,
           borderRadius: preset.radius,
           borderColor,
           borderWidth: borderColor === colors.transparent ? 0 : 1,
-          padding,
         },
       ]}
     >
-      {children}
+      <BlurView intensity={30} tint="dark" style={StyleSheet.absoluteFill} />
+      <View style={[styles.glassTint, { borderRadius: preset.radius }]} />
+      <View style={{ padding }}>{children}</View>
     </View>
   );
 
@@ -49,5 +50,11 @@ export function Card({ children, variant = 'default', accentColor, padding = spa
 }
 
 const styles = StyleSheet.create({
-  card: {},
+  card: {
+    overflow: 'hidden',
+  },
+  glassTint: {
+    ...StyleSheet.absoluteFill,
+    backgroundColor: 'rgba(34, 41, 92, 0.28)',
+  },
 });

@@ -6,16 +6,16 @@
 export const radius = {
   xs: 8,
   sm: 12,
-  md: 18,
+  md: 16,
   lg: 24,
   xl: 32,
   pill: 999,
 
-  button: 20,
-  card: 28,
-  input: 18,
+  button: 16,
+  card: 24,
+  input: 16,
   avatar: 999,
-  bottomSheet: 36,
+  bottomSheet: 24,
 } as const;
 
 export type RadiusToken = keyof typeof radius;

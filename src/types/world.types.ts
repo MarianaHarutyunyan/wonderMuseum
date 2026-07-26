@@ -1,11 +1,13 @@
-export type MiniGameType = 'quiz' | 'matching' | 'puzzle' | 'sorting';
+import type { CollectibleType } from './collectibles.types';
+import type { WorldThemeToken } from '@theme';
 
-export interface MiniGameConfig {
+export interface LevelConfig {
   readonly id: string;
+  readonly index: number;
   readonly title: string;
-  readonly type: MiniGameType;
-  readonly description: string;
+  readonly questionIds: readonly string[];
   readonly unlocksExhibitId: string;
+  readonly rewardCoins: number;
 }
 
 export interface ExhibitConfig {
@@ -13,6 +15,7 @@ export interface ExhibitConfig {
   readonly title: string;
   readonly description: string;
   readonly thumbnail: string;
+  readonly collectibleType: CollectibleType;
 }
 
 export interface WorldConfig {
@@ -21,6 +24,7 @@ export interface WorldConfig {
   readonly description: string;
   readonly colorToken: string;
   readonly icon: string;
-  readonly miniGames: readonly MiniGameConfig[];
+  readonly themeToken: WorldThemeToken;
+  readonly levels: readonly LevelConfig[];
   readonly exhibits: readonly ExhibitConfig[];
 }

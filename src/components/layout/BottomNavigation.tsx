@@ -1,14 +1,16 @@
 import { Pressable, StyleSheet, View } from 'react-native';
+import { BlurView } from 'expo-blur';
 
 import { AppText } from '@components/ui/AppText';
+import { Icon } from '@components/ui/Icon';
 import { useHaptics } from '@hooks/useHaptics';
 import { useThemeColors } from '@hooks/useThemeColors';
-import { radius, shadows, spacing } from '@theme';
+import { radius, spacing, type EmojiToken } from '@theme';
 
 export interface BottomNavItem {
   key: string;
   label: string;
-  icon: string;
+  icon: EmojiToken;
 }
 
 interface BottomNavigationProps {
@@ -17,13 +19,20 @@ interface BottomNavigationProps {
   onSelect: (key: string) => void;
 }
 
-/** Rounded, floating tab bar — active tab gets a pill highlight. */
+const NAV_BAR_HEIGHT = 72;
+
+/**
+ * Tab bar — every item, active or not, stays fully inside the 72px bar (no floating/overflowing
+ * indicator). The active tab gets a contained pill highlight instead of popping out above the bar.
+ */
 export function BottomNavigation({ items, activeKey, onSelect }: BottomNavigationProps) {
   const colors = useThemeColors();
   const { trigger } = useHaptics();
 
   return (
-    <View style={[styles.bar, shadows.lg, { backgroundColor: colors.surface, borderRadius: radius.bottomSheet / 2 }]}>
+    <View style={[styles.bar, { backgroundColor: colors.surface, borderRadius: radius.bottomSheet }]}>
+      <BlurView intensity={40} tint="dark" style={StyleSheet.absoluteFill} />
+      <View style={styles.topBorder} />
       {items.map((item) => {
         const active = item.key === activeKey;
         return (
@@ -35,13 +44,12 @@ export function BottomNavigation({ items, activeKey, onSelect }: BottomNavigatio
             }}
             accessibilityRole="button"
             accessibilityLabel={item.label}
-            style={[
-              styles.tab,
-              { borderRadius: radius.pill, backgroundColor: active ? colors.primary : colors.transparent },
-            ]}
+            style={styles.tab}
           >
-            <AppText size="lg">{item.icon}</AppText>
-            <AppText size="xs" weight="bold" color={active ? colors.white : colors.textMuted}>
+            <View style={[styles.iconWrap, active && { backgroundColor: colors.surfaceElevated }]}>
+              <Icon token={item.icon} size={20} color={active ? colors.gold : colors.textMuted} />
+            </View>
+            <AppText size="xs" weight="bold" color={active ? colors.gold : colors.textMuted}>
               {item.label}
             </AppText>
           </Pressable>
@@ -53,15 +61,31 @@ export function BottomNavigation({ items, activeKey, onSelect }: BottomNavigatio
 
 const styles = StyleSheet.create({
   bar: {
+    height: NAV_BAR_HEIGHT,
     flexDirection: 'row',
-    padding: spacing.xs,
-    gap: spacing.xs,
+    alignItems: 'center',
+    paddingHorizontal: spacing.xs,
+    overflow: 'hidden',
+  },
+  topBorder: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 1,
+    backgroundColor: 'rgba(166, 176, 230, 0.18)',
   },
   tab: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: spacing.xs,
     gap: 2,
+  },
+  iconWrap: {
+    width: 36,
+    height: 28,
+    borderRadius: radius.sm,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

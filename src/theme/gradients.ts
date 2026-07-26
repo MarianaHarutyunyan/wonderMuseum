@@ -1,11 +1,17 @@
 export type GradientColors = readonly [string, string];
 
-export const gradients: Record<'blue' | 'purple' | 'orange' | 'pink' | 'green', GradientColors> = {
-  blue: ['#4F8CFF', '#6ED8FF'],
-  purple: ['#8A6DFF', '#B57DFF'],
-  orange: ['#FF9B4A', '#FFD54A'],
-  pink: ['#FF71C8', '#FF9FE3'],
-  green: ['#5EDB7E', '#9BF3A3'],
+export const gradients: Record<
+  'blue' | 'purple' | 'orange' | 'pink' | 'green' | 'gold' | 'navy' | 'sky',
+  GradientColors
+> = {
+  sky: ['#6D8BFF', '#00D4FF'],
+  blue: ['#6D8BFF', '#00D4FF'],
+  purple: ['#A066FF', '#6D8BFF'],
+  orange: ['#FF8A00', '#FFC93A'],
+  pink: ['#FF5D88', '#FF8EE8'],
+  green: ['#39D98A', '#7CF0B2'],
+  gold: ['#FFC93A', '#FF8A00'],
+  navy: ['#101238', '#1A1F4D'],
 };
 
 export type GradientToken = keyof typeof gradients;

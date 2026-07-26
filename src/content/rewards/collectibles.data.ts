@@ -9,7 +9,6 @@ interface CollectibleTypeConfig {
 
 export const COLLECTIBLE_TYPES: readonly CollectibleTypeConfig[] = [
   { id: 'star', label: 'Stars', icon: 'star', colorToken: 'accentGold' },
-  { id: 'coin', label: 'Coins', icon: 'coin', colorToken: 'accentCoin' },
   { id: 'fossil', label: 'Fossils', icon: 'fossil', colorToken: 'accentFossil' },
   { id: 'artifact', label: 'Artifacts', icon: 'artifact', colorToken: 'accentArtifact' },
   { id: 'creature', label: 'Creatures', icon: 'creature', colorToken: 'accentCreature' },

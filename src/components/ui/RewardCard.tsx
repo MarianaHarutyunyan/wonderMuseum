@@ -1,9 +1,8 @@
 import { StyleSheet, View } from 'react-native';
 
-import { Card } from '@components/ui/Card';
-import { AppText } from '@components/ui/AppText';
+import { StatCard } from '@components/ui/StatCard';
 import { Coin, Star } from '@components/game';
-import { rewardColors, spacing, type RewardColorToken } from '@theme';
+import type { GradientToken, RewardColorToken } from '@theme';
 
 interface RewardCardProps {
   reward: RewardColorToken;
@@ -11,27 +10,37 @@ interface RewardCardProps {
   count: number;
 }
 
-/** Card showing a single collectible type — icon, running count, and label. */
-export function RewardCard({ reward, label, count }: RewardCardProps) {
-  const accent = rewardColors[reward];
+const gradientByReward: Record<RewardColorToken, GradientToken> = {
+  star: 'gold',
+  coin: 'gold',
+  fossil: 'orange',
+  artifact: 'blue',
+  creature: 'pink',
+};
 
+/** Gradient card showing a single collectible type — icon, running count, and label. */
+export function RewardCard({ reward, label, count }: RewardCardProps) {
   return (
-    <Card accentColor={accent} padding={spacing.sm}>
-      <View style={styles.row}>
-        {reward === 'coin' ? <Coin size={28} /> : <Star size={28} color={accent} />}
-        <AppText variant="subtitle" weight="extraBold" color={accent}>
-          {count}
-        </AppText>
-      </View>
-      <AppText variant="caption">{label}</AppText>
-    </Card>
+    <StatCard
+      label={label}
+      value={count}
+      gradient={gradientByReward[reward]}
+      icon={
+        <View style={styles.iconBadge}>
+          {reward === 'coin' ? <Coin size={22} /> : <Star size={22} color="#FFFFFF" />}
+        </View>
+      }
+    />
   );
 }
 
 const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
+  iconBadge: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: 'rgba(255,255,255,0.25)',
     alignItems: 'center',
-    gap: spacing.xs,
+    justifyContent: 'center',
   },
 });

@@ -11,7 +11,9 @@ export default function RootLayout() {
     <GestureHandlerRootView style={styles.root}>
       <SafeAreaProvider>
         <StatusBar style="light" />
-        <Stack screenOptions={screenOptions} />
+        <Stack screenOptions={screenOptions}>
+          <Stack.Screen name="daily-reward" options={{ presentation: 'modal' }} />
+        </Stack>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

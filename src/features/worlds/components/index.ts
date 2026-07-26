@@ -1,4 +1,4 @@
-export * from './WorldCard';
+export * from './WorldListItem';
 export * from './WorldList';
-export * from './MiniGameRow';
+export * from './LevelTile';
 export * from './ExhibitCard';

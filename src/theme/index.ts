@@ -1,6 +1,6 @@
 import { colors, museumThemes, palette, rewardColors, worldThemes } from './colors';
 import { gradientAngles, gradients } from './gradients';
-import { icons } from './icons';
+import { emoji } from './emoji';
 import { radius } from './radius';
 import { glowShadow, shadows } from './shadows';
 import { spacing } from './spacing';
@@ -8,12 +8,13 @@ import { fontFamily, fontSize, fontWeight, textVariants } from './typography';
 
 /** Button style presets — gradient + text color + radius + shadow. */
 export const buttonVariants = {
-  primary: { gradient: gradients.blue, textColor: colors.white, radius: radius.button, shadow: glowShadow(colors.primary) },
+  primary: { gradient: gradients.gold, textColor: colors.onGold, radius: radius.button, shadow: glowShadow(colors.primary) },
+  info: { gradient: gradients.blue, textColor: colors.white, radius: radius.button, shadow: glowShadow(colors.info) },
   secondary: { gradient: gradients.purple, textColor: colors.white, radius: radius.button, shadow: glowShadow(colors.purple) },
   success: { gradient: gradients.green, textColor: colors.white, radius: radius.button, shadow: glowShadow(colors.green) },
   warning: { gradient: gradients.orange, textColor: colors.white, radius: radius.button, shadow: glowShadow(colors.orange) },
   danger: { gradient: [colors.error, colors.pink] as const, textColor: colors.white, radius: radius.button, shadow: glowShadow(colors.error) },
-  ghost: { gradient: [colors.surface, colors.surface] as const, textColor: colors.textPrimary, radius: radius.button, shadow: shadows.sm },
+  ghost: { gradient: [colors.surfaceElevated, colors.surfaceElevated] as const, textColor: colors.textPrimary, radius: radius.button, shadow: shadows.sm },
 } as const;
 
 export type ButtonVariantToken = keyof typeof buttonVariants;
@@ -40,7 +41,7 @@ export const theme = {
   shadows,
   gradients,
   gradientAngles,
-  icons,
+  emoji,
   rewardColors,
   worldThemes,
   museumThemes,
@@ -56,4 +57,4 @@ export * from './radius';
 export * from './typography';
 export * from './shadows';
 export * from './gradients';
-export * from './icons';
+export * from './emoji';
