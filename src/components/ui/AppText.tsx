@@ -23,6 +23,8 @@ interface AppTextProps extends PropsWithChildren {
   numberOfLines?: number;
   /** Soft drop shadow for legibility over busy backgrounds (e.g. the home hero image). */
   shadow?: boolean;
+  /** Escape hatch for one-off layout overrides (e.g. absolute-positioned shadow layers) — prefer the typed props above. */
+  style?: TextStyle;
 }
 
 export function AppText({
@@ -34,6 +36,7 @@ export function AppText({
   align = 'left',
   numberOfLines,
   shadow = false,
+  style,
 }: AppTextProps) {
   const colors = useThemeColors();
   const preset = variant ? textVariants[variant] : undefined;
@@ -52,6 +55,7 @@ export function AppText({
           textAlign: align,
           ...(shadow ? styles.shadow : null),
         },
+        style,
       ]}
     >
       {children}

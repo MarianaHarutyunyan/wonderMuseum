@@ -6,7 +6,7 @@ import { AppText } from '@components/ui/AppText';
 import { CurrencyPill } from '@components/ui/CurrencyPill';
 import { ProgressBar } from '@components/ui/ProgressBar';
 import { HERO_IMAGE, getHeroFaceCropStyle } from '@assets/images';
-import { spacing } from '@theme';
+import { radius, spacing } from '@theme';
 
 const AVATAR_SIZE = 44;
 const ENERGY_REGEN_SECONDS = 150;
@@ -114,6 +114,12 @@ const styles = StyleSheet.create({
   identityText: {
     gap: spacing.xxs,
     flexShrink: 1,
+    backgroundColor: 'rgba(8, 10, 32, 0.55)',
+    borderRadius: radius.pill,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.14)',
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.xxs,
   },
   xpBar: {
     width: 100,

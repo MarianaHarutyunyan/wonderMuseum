@@ -1,7 +1,7 @@
-import type { ImageStyle } from 'react-native';
+import type { ImageStyle } from "react-native";
 
-export const HERO_IMAGE = require('./hero.png');
-export const MUSEUM_IMAGE = require('./museum.png');
+export const HERO_IMAGE = require("./hero.png");
+export const MUSEUM_IMAGE = require("./museum1.png");
 
 /** Natural pixel dimensions of hero.png, used to derive crop math below. */
 const HERO_IMAGE_WIDTH = 1024;

@@ -1,56 +1,48 @@
-import { useCallback, useMemo } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { router } from 'expo-router';
+import { useCallback, useMemo } from "react";
+import { Image, StyleSheet, View, useWindowDimensions } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { router } from "expo-router";
 
-import { AppButton } from '@components/ui/AppButton';
-import { AppText } from '@components/ui/AppText';
-import { Icon } from '@components/ui/Icon';
-import { IconButton } from '@components/ui/IconButton';
-import { StatCard } from '@components/ui/StatCard';
-import { StatusBar } from '@components/layout/StatusBar';
-import { DinoCompanion } from '@components/game/DinoCompanion';
-import { COLLECTIBLE_TYPES } from '@content/rewards';
-import { HERO_IMAGE, MUSEUM_IMAGE } from '@assets/images';
-import { useCurrencyStore } from '@store/currencyStore';
-import { useMissionsStore } from '@store/missionsStore';
-import { useProfileStore } from '@store/profileStore';
-import { useProgressStore } from '@store/progressStore';
-import { WORLDS } from '@content/worlds';
-import { MISSIONS } from '@content/missions';
-import { ROUTES } from '@navigation';
-import { TAB_BAR_CLEARANCE } from '@constants';
-import {
-  gradientAngles,
-  gradients,
-  radius,
-  spacing,
-  type ColorToken,
-  type EmojiToken,
-  type GradientToken,
-} from '@theme';
-
-const collectibleGradientByColorToken: Partial<Record<ColorToken, GradientToken>> = {
-  accentGold: 'gold',
-  accentFossil: 'orange',
-  accentArtifact: 'blue',
-  accentCreature: 'pink',
-};
+import { AnimatedButton } from "@components/ui/AnimatedButton";
+import { AppText } from "@components/ui/AppText";
+import { Icon } from "@components/ui/Icon";
+import { IconButton } from "@components/ui/IconButton";
+import { StatusBar } from "@components/layout/StatusBar";
+// import { CollectibleChip } from "@features/collectibles/components/CollectibleChip";
+// import { COLLECTIBLE_TYPES } from "@content/rewards";
+import { HERO_IMAGE, MUSEUM_IMAGE } from "@assets/images";
+import { useCurrencyStore } from "@store/currencyStore";
+import { useMissionsStore } from "@store/missionsStore";
+import { useProfileStore } from "@store/profileStore";
+import { useProgressStore } from "@store/progressStore";
+import { WORLDS } from "@content/worlds";
+import { MISSIONS } from "@content/missions";
+import { ROUTES } from "@navigation";
+import { TAB_BAR_CLEARANCE } from "@constants";
+import { gradientAngles, gradients, radius, shadows, spacing } from "@theme";
 
 export default function HomeScreen() {
+  const { width: windowWidth, height: windowHeight } = useWindowDimensions();
   const profile = useProfileStore();
   const currency = useCurrencyStore();
-  const completedLevelIds = useProgressStore((state) => state.completedLevelIds);
-  const collectibles = useProgressStore((state) => state.collectibles);
-  const canClaimDailyReward = useMissionsStore((state) => state.canClaimDailyReward());
+  const completedLevelIds = useProgressStore(
+    (state) => state.completedLevelIds,
+  );
+  // const collectibles = useProgressStore((state) => state.collectibles);
+  const canClaimDailyReward = useMissionsStore((state) =>
+    state.canClaimDailyReward(),
+  );
 
   const nextWorld = useMemo(
-    () => WORLDS.find((world) => world.levels.some((level) => !completedLevelIds.includes(level.id))) ?? WORLDS[0],
+    () =>
+      WORLDS.find((world) =>
+        world.levels.some((level) => !completedLevelIds.includes(level.id)),
+      ) ?? WORLDS[0],
     [completedLevelIds],
   );
   const openMissionsCount = useMemo(
-    () => MISSIONS.filter((mission) => mission.category === 'daily').length,
+    () => MISSIONS.filter((mission) => mission.category === "daily").length,
     [],
   );
 
@@ -62,9 +54,16 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.root}>
-      <Image source={MUSEUM_IMAGE} style={styles.backgroundImage} resizeMode="cover" />
+      <Image
+        source={MUSEUM_IMAGE}
+        style={[
+          styles.backgroundImage,
+          { width: windowWidth, height: windowHeight },
+        ]}
+        resizeMode="cover"
+      />
 
-      <SafeAreaView style={styles.safeArea} edges={['top']}>
+      <SafeAreaView style={styles.safeArea} edges={["top"]}>
         <View style={styles.topBar}>
           <StatusBar
             playerName={profile.playerName}
@@ -111,43 +110,117 @@ export default function HomeScreen() {
           </View>
 
           <View style={styles.titleWrap}>
-            <AppText variant="titleXl" weight="extraBold" color="#FFFFFF" shadow>
-              WONDER
-            </AppText>
-            <AppText variant="titleXl" weight="extraBold" color="#FFA63A" shadow>
-              MUSEUM
-            </AppText>
+            <View style={styles.titleTextWrap}>
+              <AppText
+                variant="title"
+                weight="extraBold"
+                color="rgba(30, 58, 138, 0.55)"
+                style={styles.titleShadowLayer}
+              >
+                WONDER
+              </AppText>
+              <AppText variant="title" weight="extraBold" color="#FFFFFF">
+                WONDER
+              </AppText>
+            </View>
+            <View style={styles.titleTextWrap}>
+              <AppText
+                variant="titleXl"
+                weight="extraBold"
+                color="rgba(140, 70, 10, 0.6)"
+                style={styles.titleShadowLayer}
+              >
+                MUSEUM
+              </AppText>
+              <AppText variant="titleXl" weight="extraBold" color="#FFA63A">
+                MUSEUM
+              </AppText>
+            </View>
             <LinearGradient
               colors={gradients.purple}
               start={gradientAngles.horizontal.start}
               end={gradientAngles.horizontal.end}
-              style={styles.subtitlePill}
+              style={[styles.subtitlePill, shadows.md]}
             >
+              <LinearGradient
+                colors={["rgba(255,255,255,0.35)", "rgba(255,255,255,0)"]}
+                start={gradientAngles.vertical.start}
+                end={gradientAngles.vertical.end}
+                style={styles.subtitleGloss}
+                pointerEvents="none"
+              />
               <AppText size="xs" weight="extraBold" color="#FFFFFF">
                 Learn • Explore • Collect
               </AppText>
             </LinearGradient>
           </View>
 
-          <View style={styles.illustration}>
-            <Image source={HERO_IMAGE} style={styles.heroCharacterImage} resizeMode="contain" />
-            <DinoCompanion size={56} />
-          </View>
+          <View style={styles.bottomRow}>
+            <View style={styles.heroWrap}>
+              <View style={styles.heroImageCrop}>
+                <Image
+                  source={HERO_IMAGE}
+                  style={styles.heroCharacterImage}
+                  resizeMode="contain"
+                />
+              </View>
+            </View>
 
-          <View style={styles.ctaBlock}>
-            <AppButton label="Continue Adventure" onPress={handlePlay} variant="warning" size="lg" />
-
-            <View style={styles.statsRow}>
-              {COLLECTIBLE_TYPES.map((collectibleType) => (
-                <View key={collectibleType.id} style={styles.statCard}>
-                  <StatCard
-                    label={collectibleType.label}
-                    value={collectibles[collectibleType.id]}
-                    gradient={collectibleGradientByColorToken[collectibleType.colorToken as ColorToken] ?? 'blue'}
-                    icon={<Icon token={collectibleType.icon as EmojiToken} size={22} color="#FFFFFF" />}
+            <View style={styles.ctaBlock}>
+              <AnimatedButton
+                onPress={handlePlay}
+                accessibilityLabel="Continue Adventure"
+                pressScale={0.96}
+              >
+                <LinearGradient
+                  colors={gradients.gold}
+                  start={gradientAngles.diagonal.start}
+                  end={gradientAngles.diagonal.end}
+                  style={[styles.playButton, shadows.lg]}
+                >
+                  <LinearGradient
+                    colors={["rgba(255,255,255,0.4)", "rgba(255,255,255,0)"]}
+                    start={gradientAngles.vertical.start}
+                    end={gradientAngles.vertical.end}
+                    style={styles.playGloss}
+                    pointerEvents="none"
                   />
-                </View>
-              ))}
+                  <View style={styles.playRow}>
+                    <View style={styles.playIconCircle}>
+                      <Icon token="play" size={14} color="#FFFFFF" />
+                    </View>
+                    <View>
+                      <AppText
+                        size="lg"
+                        weight="extraBold"
+                        color="#FFFFFF"
+                        shadow
+                      >
+                        PLAY
+                      </AppText>
+                      <AppText
+                        size="xs"
+                        weight="bold"
+                        color="rgba(255,255,255,0.9)"
+                      >
+                        Continue Adventure
+                      </AppText>
+                    </View>
+                  </View>
+                </LinearGradient>
+              </AnimatedButton>
+
+              {/* <View style={styles.chipsRow}>
+                {COLLECTIBLE_TYPES.map((collectibleType) => (
+                  <CollectibleChip
+                    key={collectibleType.id}
+                    label={collectibleType.label}
+                    count={collectibles[collectibleType.id]}
+                    colorToken={collectibleType.colorToken}
+                    icon={collectibleType.icon}
+                  />
+                ))}
+              </View> */}
             </View>
           </View>
         </View>
@@ -161,7 +234,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   backgroundImage: {
-    ...StyleSheet.absoluteFill,
+    position: "absolute",
+    top: 0,
+    left: 0,
   },
   safeArea: {
     flex: 1,
@@ -175,42 +250,95 @@ const styles = StyleSheet.create({
     paddingBottom: TAB_BAR_CLEARANCE,
   },
   quickMenu: {
-    position: 'absolute',
+    position: "absolute",
     top: spacing.xs,
     right: spacing.md,
-    gap: spacing.xs,
+    gap: spacing.sm,
   },
   titleWrap: {
-    marginTop: spacing.lg,
+    marginTop: spacing.md,
     paddingRight: 64,
-    gap: spacing.xxs,
-    alignItems: 'flex-start',
+    gap: 0,
+    alignItems: "flex-start",
+  },
+  titleTextWrap: {
+    justifyContent: "center",
+  },
+  titleShadowLayer: {
+    position: "absolute",
+    top: 3,
+    left: 0,
   },
   subtitlePill: {
-    marginTop: spacing.xxs,
+    marginTop: spacing.xs,
     paddingHorizontal: spacing.sm,
-    paddingVertical: spacing.xxs,
+    paddingVertical: spacing.xs,
     borderRadius: radius.pill,
+    overflow: "hidden",
   },
-  illustration: {
+  subtitleGloss: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: "60%",
+  },
+  bottomRow: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'center',
-    gap: spacing.xs,
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "space-between",
+    paddingBottom: spacing.xs,
+  },
+  heroWrap: {
+    alignItems: "center",
+    paddingLeft: spacing.xs,
+  },
+  heroImageCrop: {
+    width: 195,
+    height: 236,
+    overflow: "hidden",
   },
   heroCharacterImage: {
-    width: 84,
-    height: 126,
+    width: 195,
+    height: 293,
   },
   ctaBlock: {
     gap: spacing.sm,
   },
-  statsRow: {
-    flexDirection: 'row',
+  playButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: spacing.xs,
+    paddingHorizontal: spacing.sm,
+    borderRadius: radius.lg,
+    overflow: "hidden",
+    alignSelf: "center",
+  },
+  playGloss: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: "55%",
+  },
+  playRow: {
+    flexDirection: "row",
+    alignItems: "center",
     gap: spacing.xs,
   },
-  statCard: {
-    flex: 1,
+  playIconCircle: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "rgba(255,255,255,0.28)",
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.4)",
+  },
+  chipsRow: {
+    flexDirection: "row",
+    gap: spacing.xs,
   },
 });
